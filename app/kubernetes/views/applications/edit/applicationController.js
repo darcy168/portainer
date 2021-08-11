@@ -107,7 +107,8 @@ class KubernetesApplicationController {
     KubernetesPodService,
     KubernetesNodeService,
     KubernetesNamespaceHelper,
-    EndpointProvider
+    EndpointProvider,
+    StackService
   ) {
     this.$async = $async;
     this.$state = $state;
@@ -115,6 +116,7 @@ class KubernetesApplicationController {
     this.Notifications = Notifications;
     this.LocalStorage = LocalStorage;
     this.ModalService = ModalService;
+    this.StackService = StackService;
 
     this.KubernetesApplicationService = KubernetesApplicationService;
     this.KubernetesEventService = KubernetesEventService;
@@ -193,6 +195,10 @@ class KubernetesApplicationController {
 
   ruleCanBeDisplayed(rule) {
     return !rule.Host && !rule.IP ? false : true;
+  }
+
+  isStack() {
+    return this.application.StackId;
   }
 
   /**
@@ -310,6 +316,11 @@ class KubernetesApplicationController {
 
       this.placements = computePlacements(nodes, this.application);
       this.state.placementWarning = _.find(this.placements, { AcceptsApplication: true }) ? false : true;
+
+      if (application.StackId) {
+        const file = await this.StackService.getStackFile(application.StackId);
+        this.stackFileContent = file;
+      }
     } catch (err) {
       this.Notifications.error('Failure', err, 'Unable to retrieve application details');
     } finally {
