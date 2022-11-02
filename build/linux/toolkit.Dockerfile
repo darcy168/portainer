@@ -1,4 +1,4 @@
-FROM ubuntu
+FROM ubuntu:kinetic-20220830
 
 # Expose port for the Portainer UI and Edge server
 EXPOSE 9000
