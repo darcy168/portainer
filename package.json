@@ -80,7 +80,7 @@
     "angulartics": "^1.6.0",
     "babel-plugin-angularjs-annotate": "^0.10.0",
     "bootbox": "^5.4.0",
-    "bootstrap": "^3.4.0",
+    "bootstrap": "^4.0.0",
     "chardet": "^1.3.0",
     "chart.js": "~2.6.0",
     "codemirror": "~5.30.0",
